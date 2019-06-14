@@ -1,0 +1,17 @@
+.TwoSide {
+  display: flex;
+
+  * {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .TwoSide {
+    flex-direction: column;
+
+    * {
+      width: 100%;
+    }
+  }
+}
