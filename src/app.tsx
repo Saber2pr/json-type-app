@@ -1,14 +1,16 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { FileUpload } from './components/file-upload'
 import { TwoSide } from './components/two-side'
 import jsonToDTs from './core/app'
 import { FileDownload } from './components/file-download'
+const pkg: { version: string } = require('../package.json')
 import './app.less'
+import 'normalize.css'
 
 const demo = {
   name: 'Default',
   get json() {
-    return JSON.stringify({ a: 'a', b: true })
+    return JSON.stringify({ a: 'a', b: true }, null, 2)
   },
   get ts() {
     return jsonToDTs(this.name, this.json)
@@ -22,6 +24,13 @@ export const App = () => {
   const [ts, setTs] = useState(demo.ts)
 
   const text_ref = useRef<HTMLTextAreaElement>(null)
+
+  const resetHeight = () => {
+    const target = text_ref.current
+    target && (target.style.height = target.scrollHeight + 'px')
+  }
+
+  useEffect(() => resetHeight(), [json])
 
   const inputJson = (name: string, json: string) => {
     try {
@@ -54,19 +63,33 @@ export const App = () => {
       </main>
 
       <footer>
-        <FileUpload
-          onUploaded={(res, file) => {
-            const name = file.name.split('.')[0]
-            setName(name)
-            inputJson(name, res)
+        <ul>
+          <li>
+            <p>
+              <FileUpload
+                onUploaded={(res, file) => {
+                  const name = file.name.split('.')[0]
+                  setName(name)
+                  inputJson(name, res)
 
-            const target = text_ref.current as HTMLTextAreaElement
-            target && (target.style.height = target.scrollHeight + 'px')
-          }}
-        />
-        <FileDownload name={name + '.ts'} content={ts}>
-          Download d.ts
-        </FileDownload>
+                  resetHeight()
+                }}
+              />
+            </p>
+          </li>
+
+          <li>
+            <p>
+              <FileDownload name={name + '.ts'} content={ts}>
+                Download d.ts
+              </FileDownload>
+            </p>
+          </li>
+
+          <li>
+            <p>version {pkg.version}</p>
+          </li>
+        </ul>
       </footer>
     </>
   )

@@ -26,7 +26,7 @@ module.exports = WebpackConfig({
         use: ['ts-loader']
       },
       {
-        test: /\.less$/,
+        test: /\.(css|less)$/,
         use: extractLess.extract({
           use: [{
               loader: 'css-loader'

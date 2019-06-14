@@ -2,7 +2,7 @@
  * @Author: saber2pr
  * @Date: 2019-06-13 22:47:49
  * @Last Modified by: saber2pr
- * @Last Modified time: 2019-06-14 16:47:02
+ * @Last Modified time: 2019-06-14 18:09:09
  */
 const filterChar = (word: string) => word.replace(/\/|\@|\.|\-/g, '_')
 const headUpper = (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
@@ -17,7 +17,7 @@ namespace Type {
 const jsonToDTs = (name: string, json: string): string => {
   const obj = JSON.parse(json)
   const objTyped = transform(obj)
-  const newJson = JSON.stringify(objTyped)
+  const newJson = JSON.stringify(objTyped, null, 2)
   const interfBody = resolvJsonTypes(newJson)
   return toInterface(name, interfBody)
 }

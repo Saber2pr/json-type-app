@@ -1,6 +1,7 @@
 {
   "name": "json-type-app",
   "private": true,
+  "version": "0.0.1",
   "scripts": {
     "start": "webpack -w",
     "build": "mkdir -p ./build/ && rm ./build -r && webpack"
@@ -8,6 +9,7 @@
   "dependencies": {
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
+    "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
