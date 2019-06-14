@@ -1,6 +1,6 @@
-# react-ts
+# json to d.ts.
 
-> react + ts + less + webpack.
+[view>>](https://saber2pr.github.io/MyWeb/build/jsonType/build/)
 
 ```bash
 npm i
