@@ -48,7 +48,7 @@ module.exports = WebpackConfig({
     ]
   },
   plugins: [new HtmlWebpackPlugin({
-    templateContent: templateContent('react-ts', {
+    templateContent: templateContent('json to d.ts', {
       'injectBody': '<div id="root"></div>'
     })
   }), extractLess]

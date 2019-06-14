@@ -87,7 +87,7 @@ export const App = () => {
           </li>
 
           <li>
-            <p>version {pkg.version}</p>
+            <p>version {pkg.version} @ saber2pr. </p>
           </li>
         </ul>
       </footer>
