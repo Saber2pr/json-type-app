@@ -6,6 +6,7 @@ import { FileDownload } from './components/file-download'
 const pkg: { version: string } = require('../package.json')
 import './app.less'
 import 'normalize.css'
+import { useClipboard } from './hooks/useClipboard'
 
 const demo = {
   name: 'Default',
@@ -36,8 +37,19 @@ export const App = () => {
     try {
       setJson(json)
       setTs(jsonToDTs(name, json))
-    } catch (error) {}
+    } catch (error) { }
   }
+
+  const ref = useRef<HTMLAnchorElement>()
+  useClipboard('.Clipboard-Btn', cp => {
+    cp.on('success', () => {
+      ref.current.innerText = '复制成功'
+      setTimeout(() => {
+        ref.current.innerText = '复制类型'
+      }, 1000)
+    })
+  })
+  const cp_id = 'Clipboard-Target'
 
   return (
     <>
@@ -48,7 +60,7 @@ export const App = () => {
       </header>
 
       <main>
-        <section>
+        <section className="wrapper">
           <TwoSide>
             <textarea
               className="json"
@@ -57,8 +69,14 @@ export const App = () => {
               onChange={() => inputJson(name, text_ref.current.value)}
             ></textarea>
 
-            <textarea className="ts" value={ts} onChange={() => {}}></textarea>
+            <textarea
+              id={cp_id}
+              className="ts" value={ts} onChange={() => { }}></textarea>
           </TwoSide>
+          <a style={{ marginLeft: 16 }} href="#" ref={ref}
+            className="Clipboard-Btn"
+            data-clipboard-target={'#' + cp_id}
+          >复制类型</a>
         </section>
       </main>
 

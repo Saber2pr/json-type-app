@@ -7,6 +7,9 @@ html {
 textarea {
   background-color: #242a30;
   color: #799dbd;
+  &.json {
+     min-height: 500px;
+  }
 }
 
 .title {
@@ -14,4 +17,14 @@ textarea {
   color: #799dbd;
   text-align: center;
   line-height: 3rem;
+}
+
+.wrapper {
+  position: relative;
+  .Clipboard-Btn {
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    color: #ffffff;
+  }
 }

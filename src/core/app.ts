@@ -19,10 +19,10 @@ const jsonToDTs = (name: string, json: string): string => {
   const objTyped = transform(obj)
   const newJson = JSON.stringify(objTyped, null, 2)
   const interfBody = resolvJsonTypes(newJson)
-  return toInterface(name, interfBody)
+  return toInterface(name, interfBody, Array.isArray(obj))
 }
-const toInterface = (name: string, content: string) =>
-  `export interface ${headUpper(name)} ${content}`
+const toInterface = (name: string, content: string, isArray = false) => 
+  isArray ? `export type ${headUpper(name)} = ${content}`: `export interface ${headUpper(name)} ${content}`
 function transform(data: Object) {
   if (Type.isObject(data)) {
     return parseObj(data)
