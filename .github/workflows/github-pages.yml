@@ -19,5 +19,5 @@ jobs:
       - name: Deploy Pages
         uses: peaceiris/actions-github-pages@v3.1.12
         with:
-          github_token: ${{ secrets.ACCESS_PUBLIC_REPOSITORIES }}
+          github_token: ${{ secrets.Access_Repo }}
           publish_dir: ./build
