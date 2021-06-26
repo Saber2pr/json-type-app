@@ -4,7 +4,7 @@
   "version": "0.0.2",
   "scripts": {
     "start": "webpack -w",
-    "build": "rm -f ./build -r && webpack"
+    "build": "webpack"
   },
   "dependencies": {
     "@types/clipboard": "^2.0.1",
