@@ -1,61 +1,69 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const CleanCSSPlugin = require('less-plugin-clean-css')
-const path = require('path')
+const HtmlWebpackPlugin = require("html-webpack-plugin")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require("path")
 
-const extractLess = new ExtractTextPlugin('style.min.css')
+const publicPath = (resourcePath, context) =>
+  path.relative(path.dirname(resourcePath), context) + '/'
 
 const cdn = '//cdn.jsdelivr.net/gh'
 const username = 'saber2pr'
 const repo = 'json-type-app'
 const pages_branch = 'gh-pages'
 
-const {
-  WebpackConfig,
-  templateContent
-} = require('@saber2pr/webpack-configer')
-
-module.exports = WebpackConfig({
-  mode: 'production',
-  entry: './src/index.tsx',
+module.exports = {
+  entry: "./src/index.tsx",
   resolve: {
-    extensions: ['.js', '.ts', '.tsx']
+    extensions: [".js", ".jsx", ".ts", ".tsx"]
   },
   output: {
-    filename: 'bundle.min.js',
-    path: path.join(__dirname, 'build'),
+    filename: '[name][hash].min.js',
+    path: path.join(__dirname, "build"),
     publicPath: process.env.NODE_ENV === 'production' ? `${cdn}/${username}/${repo}@${pages_branch}/` : '/',
   },
   module: {
-    rules: [{
-      test: /\.(ts|tsx)$/,
-      use: ['ts-loader']
-    },
-    {
-      test: /\.(css|less)$/,
-      use: extractLess.extract({
-        use: [{
-          loader: 'css-loader'
-        },
-        {
-          loader: 'less-loader',
-          options: {
-            plugins: [
-              new CleanCSSPlugin({
-                advanced: true
-              })
-            ]
-          }
-        }
+    rules: [
+      {
+        test: /\.(ts|tsx)$/,
+        use: ['ts-loader'],
+      },
+      {
+        test: /\.(woff|svg|eot|ttf|png)$/,
+        use: ['url-loader'],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { publicPath },
+          },
+          'css-loader',
         ],
-        fallback: 'style-loader'
-      })
-    }
-    ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: { publicPath },
+          },
+          'css-loader',
+          'less-loader',
+        ],
+      },
+    ],
   },
-  plugins: [new HtmlWebpackPlugin({
-    templateContent: templateContent('json to d.ts', {
-      'injectBody': '<div id="root"></div>'
-    })
-  }), extractLess]
-})
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'index.html')
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name][hash].css',
+      chunkFilename: 'style.[id][hash].css',
+    }),
+  ],
+  watchOptions: {
+    aggregateTimeout: 1000,
+    ignored: /node_modules|lib/
+  }
+}
