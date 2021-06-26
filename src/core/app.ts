@@ -4,6 +4,8 @@
  * @Last Modified by: saber2pr
  * @Last Modified time: 2019-06-14 18:09:09
  */
+import JSON5 from 'json5'
+
 const filterChar = (word: string) => word.replace(/\/|\@|\.|\-/g, '_')
 const headUpper = (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
 const resolvJsonTypes = (json: string) => json.replace(/"/g, '')
@@ -15,7 +17,7 @@ namespace Type {
     Object.prototype.toString.call(obj) === '[object Array]'
 }
 const jsonToDTs = (name: string, json: string): string => {
-  const obj = JSON.parse(json)
+  const obj = JSON5.parse(json)
   const objTyped = transform(obj)
   const newJson = JSON.stringify(objTyped, null, 2)
   const interfBody = resolvJsonTypes(newJson)

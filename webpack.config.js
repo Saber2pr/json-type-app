@@ -5,6 +5,8 @@ const path = require('path')
 
 const extractLess = new ExtractTextPlugin('style.min.css')
 
+const cdnhost = '//cdn.jsdelivr.net/gh/saber2pr'
+
 const {
   WebpackConfig,
   templateContent
@@ -18,33 +20,34 @@ module.exports = WebpackConfig({
   },
   output: {
     filename: 'bundle.min.js',
-    path: path.join(__dirname, 'build')
+    path: path.join(__dirname, 'build'),
+    publicPath: process.env.NODE_ENV === 'production' ? `${cdnhost}/MyWeb@master/build/jsonType/build/` : '/',
   },
   module: {
     rules: [{
-        test: /\.(ts|tsx)$/,
-        use: ['ts-loader']
-      },
-      {
-        test: /\.(css|less)$/,
-        use: extractLess.extract({
-          use: [{
-              loader: 'css-loader'
-            },
-            {
-              loader: 'less-loader',
-              options: {
-                plugins: [
-                  new CleanCSSPlugin({
-                    advanced: true
-                  })
-                ]
-              }
-            }
-          ],
-          fallback: 'style-loader'
-        })
-      }
+      test: /\.(ts|tsx)$/,
+      use: ['ts-loader']
+    },
+    {
+      test: /\.(css|less)$/,
+      use: extractLess.extract({
+        use: [{
+          loader: 'css-loader'
+        },
+        {
+          loader: 'less-loader',
+          options: {
+            plugins: [
+              new CleanCSSPlugin({
+                advanced: true
+              })
+            ]
+          }
+        }
+        ],
+        fallback: 'style-loader'
+      })
+    }
     ]
   },
   plugins: [new HtmlWebpackPlugin({

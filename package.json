@@ -4,13 +4,14 @@
   "version": "0.0.2",
   "scripts": {
     "start": "webpack -w",
-    "build": "mkdir -p ./build/ && rm ./build -r && webpack"
+    "build": "rm -f ./build -r && webpack"
   },
   "dependencies": {
     "@types/clipboard": "^2.0.1",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "clipboard": "^2.0.6",
+    "json5": "^2.2.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
