@@ -4,7 +4,7 @@ on:
     branches:
       - master
 jobs:
-  Deploy:
+  Deploy Pages:
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout
@@ -16,8 +16,8 @@ jobs:
       - name: Build App
         run: yarn build
       
-      - name: Deploy Pages
+      - name: Deploy
         uses: peaceiris/actions-github-pages@v3.1.12
         with:
-          github_token: ${{ secrets.Deploy }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
