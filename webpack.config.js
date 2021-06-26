@@ -5,7 +5,10 @@ const path = require('path')
 
 const extractLess = new ExtractTextPlugin('style.min.css')
 
-const cdnhost = '//cdn.jsdelivr.net/gh/saber2pr'
+const cdn = '//cdn.jsdelivr.net/gh'
+const username = 'saber2pr'
+const repo = 'json-type-app'
+const pages_branch = 'gh-pages'
 
 const {
   WebpackConfig,
@@ -21,7 +24,7 @@ module.exports = WebpackConfig({
   output: {
     filename: 'bundle.min.js',
     path: path.join(__dirname, 'build'),
-    publicPath: process.env.NODE_ENV === 'production' ? `${cdnhost}/json-type-app@gh-pages/` : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? `${cdn}/${username}/${repo}@${pages_branch}/` : '/',
   },
   module: {
     rules: [{
