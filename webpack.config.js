@@ -21,7 +21,7 @@ module.exports = WebpackConfig({
   output: {
     filename: 'bundle.min.js',
     path: path.join(__dirname, 'build'),
-    publicPath: process.env.NODE_ENV === 'production' ? `${cdnhost}/MyWeb@master/build/jsonType/build/` : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? `${cdnhost}/json-type-app@gh-pages/` : '/',
   },
   module: {
     rules: [{
