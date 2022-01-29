@@ -10,6 +10,11 @@ import { jsonToDTs } from './core/json2dts';
 import { code_json } from './code';
 import { clipboard } from './core/clipboard';
 
+export const debounce = (callback: Function, delta = 500, id = 'default') => {
+  clearTimeout(debounce[id]);
+  debounce[id] = setTimeout(callback, delta);
+};
+
 export const App = () => {
   const leftRef = useRef<HTMLDivElement>();
   const rightRef = useRef<HTMLDivElement>();
@@ -46,6 +51,16 @@ export const App = () => {
 
     jsonEditor.setValue(code_json);
     jsonEditor.getInstance().focus();
+
+    window.addEventListener('resize', () =>
+      debounce(() => {
+        const clientWidth = document.documentElement.clientWidth;
+        const clientHeight = document.documentElement.clientHeight;
+        const width = clientWidth / 2;
+        jsonEditor.setSize(width, clientHeight);
+        typeEditor.setSize(width, clientHeight);
+      }),
+    );
   }, []);
 
   return (
