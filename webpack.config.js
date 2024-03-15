@@ -7,7 +7,7 @@ const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin")
 const publicPath = (resourcePath, context) =>
   path.relative(path.dirname(resourcePath), context) + '/'
 
-const cdn = '//fastly.jsdelivr.net/gh'
+const cdn = '//saber2pr.top/json-type-app'
 const username = 'saber2pr'
 const pages_branch = 'gh-pages'
 const repo = 'json-type-app' // github 仓库
