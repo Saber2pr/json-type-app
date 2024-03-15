@@ -20,7 +20,7 @@ module.exports = {
   output: {
     filename: '[name][hash].min.js',
     path: path.join(__dirname, "build"),
-    publicPath: process.env.NODE_ENV === 'production' ? `${cdn}/${username}/${repo}@${pages_branch}/` : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? `${cdn}` : '/',
   },
   module: {
     rules: [
