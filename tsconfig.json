@@ -4,6 +4,7 @@
     "module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "moduleResolution": "node",
     "jsx": "react",
     "lib": ["dom", "es2015", "esnext"]
